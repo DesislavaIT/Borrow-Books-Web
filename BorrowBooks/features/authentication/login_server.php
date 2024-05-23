@@ -9,16 +9,21 @@ session_start();
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+function alert($message) {
+    echo "<script type='text/javascript'>alert('$message'); window.location.href = 'login.php';</script>";
+    exit();
+}
+
 // Validations
 if (empty($email) || empty($password)) {
-    echo "Моля попълнете всички полета.";
+    alert("Моля попълнете всички полета.");
     exit();
 }
 
 $userService = new UsersRepository();
 $user = $userService->getByEmail($email);
 if (!$user) {
-    echo "Невалидни потребителско име или парола.";
+    alert("Невалидни потребителско име или парола.");
     exit();
 }
 
@@ -29,6 +34,8 @@ if (password_verify($password, $storedPassword)) {
     header("Location: ../home/home.php");
     exit();
 } else {
-    echo "Невалидни потребителско име или парола.";
+    alert("Невалидни потребителско име или парола.");
     exit();
 }
+
+?>
