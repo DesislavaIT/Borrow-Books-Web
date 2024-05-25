@@ -1,0 +1,98 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(45, 45, 45, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #D3B6E7;
+}
+
+.fields {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.fields-inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fields-inline .fields {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.fields-inline .fields:last-child {
+    margin-right: 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn {
+    width: 50%;
+    padding: 10px;
+    background-color: #D3B6E7;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #C3A5D7;
+}
+
+.link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.link a {
+    color: #D3B6E7;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
