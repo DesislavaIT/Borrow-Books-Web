@@ -12,7 +12,8 @@ $password = $_POST['password'];
 $confirm_password = $_POST['confirmpassword'];
 
 function alert($message) {
-    echo "<script type='text/javascript'>alert('$message'); window.location.href = 'registration.php';</script>";
+    $message = json_encode($message);
+    echo "<script type='text/javascript'>alert($message); window.location.href = 'registration.php';</script>";
     exit();
 }
 
