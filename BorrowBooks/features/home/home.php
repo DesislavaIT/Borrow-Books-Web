@@ -10,7 +10,7 @@
     </head>
     <body>
         <section class="home-page">
-            <section include-html="../sidebar/sidebar.html"></section>
+            <section include-html="../sidebar/sidebar.php"></section>
             <section class="content">
                 <header>
                     <h1>Book Collection</h1>
