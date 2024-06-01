@@ -1,0 +1,23 @@
+.page-layout {
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: block;
+    width: calc(100% - 2rem);
+    max-width: 480px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(48, 48, 48, 0.25);
+}
+.container header {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #D3B6E7;
+}
+.container header h2 {
+    margin: 0;
+    font-weight: bolder;
+}
