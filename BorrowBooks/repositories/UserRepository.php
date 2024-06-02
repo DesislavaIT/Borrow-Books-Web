@@ -42,4 +42,30 @@ class UsersRepository extends Repository {
         $query->bindParam(':is_admin', $user->isAdmin(), PDO::PARAM_BOOL);
         return $query->execute();
     }
+
+    public function createCurrent(User $user) {
+        $this->deleteCurrent();
+
+        $query = $this->database->connect()->prepare(
+            "INSERT INTO currentUser (username, email, password_hash, is_admin) VALUES (:username, :email, :password_hash, :is_admin)"
+        );
+        $query->bindParam(':username', $user->getUsername(), PDO::PARAM_STR);
+        $query->bindParam(':email', $user->getEmail(), PDO::PARAM_STR);
+        $query->bindParam(':password_hash', $user->getPasswordHash(), PDO::PARAM_STR);
+        $query->bindParam(':is_admin', $user->isAdmin(), PDO::PARAM_BOOL);
+        return $query->execute();
+    }
+
+    public function deleteCurrent() {
+        $query = $this->database->connect()->prepare("DELETE FROM currentUser");
+        return $query->execute();
+    }
+
+    public function getCurrent() {
+        $query = $this->database->connect()->prepare("SELECT * FROM currentUser LIMIT 1");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $result ? new User($result['username'], $result['email'], $result['password_hash'], $result['is_admin']) : null;
+    }
 }

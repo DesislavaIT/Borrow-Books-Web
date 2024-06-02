@@ -3,17 +3,17 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home</title>
-        <link rel="stylesheet" href="home.css" />
-	    <script type="module" src="home.js"></script>
+        <title>Borrowed Books</title>
+        <link rel="stylesheet" href="borrowed-books.css" />
+	    <script type="module" src="borrowed-books.js"></script>
 	    <script type="module" src="../sidebar/sidebar.js"></script>
     </head>
     <body>
-        <section class="home-page">
+        <section class="borrowed-books-page">
             <section include-html="../sidebar/sidebar.php"></section>
             <section class="content">
                 <header>
-                    <h1>Book Collection</h1>
+                    <h1>Borrowed Books</h1>
                 </header>
                 <main>
                     <section class="book-grid">
@@ -34,7 +34,7 @@
             <h2 id="bookTitle"></h2>
             <h3 id="bookAuthor"></h3>
             <p id="bookDescription"></p>
-            <button class="borrow-btn" id="borrowBtn">Borrow Book</button>
+            <button class="return-btn" id="returnBtn">Return Book</button>
         </section>
     </body>
 </html>

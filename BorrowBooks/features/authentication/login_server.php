@@ -32,6 +32,7 @@ if (password_verify($password, $storedPassword)) {
     $_SESSION['email'] = $user->getEmail();
     $_SESSION['username'] = $user->getUsername();
     header("Location: ../home/home.php");
+    $userService->createCurrent($user);
     exit();
 } else {
     alert("Невалидни потребителско име или парола.");

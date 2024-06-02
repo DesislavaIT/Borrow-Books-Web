@@ -12,7 +12,8 @@ $password = $_POST['password'];
 $confirm_password = $_POST['confirmpassword'];
 
 function alert($message) {
-    echo "<script type='text/javascript'>alert('$message'); window.location.href = 'registration.php';</script>";
+    $message = json_encode($message);
+    echo "<script type='text/javascript'>alert($message); window.location.href = 'registration.php';</script>";
     exit();
 }
 
@@ -74,10 +75,11 @@ try {
 
     $user = new User($username, $email, $passwordHash);
     $is_successful = $user_repo->create($user);
-
+    
     if ($is_successful) {
-        alert("Успешна регистрация.");
         header("Location: ../home/home.php");
+        $user_repo->createCurrent($user);
+        alert("Успешна регистрация.");
         exit();
     } else {
         alert("Грешка по време на регистрацията.");
