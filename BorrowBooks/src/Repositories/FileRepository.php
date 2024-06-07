@@ -58,6 +58,19 @@ class FileRepository extends Repository
         return false;
     }
 
+    public function return(int $book_id, int $user_id): bool
+    {
+        $statement = $this->database->pdo->prepare('
+            DELETE FROM user_files
+            WHERE book_id = :book_id AND user_id = :user_id
+        ');
+
+        $statement->bindValue(':book_id', $book_id);
+        $statement->bindValue(':user_id', $user_id);
+
+        return $statement->execute();
+    }
+
     /**
      * @return File[]
      */
