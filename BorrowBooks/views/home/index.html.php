@@ -14,7 +14,7 @@ use Bookstore\Models\File;
 {% endblock %}
 
 {% block content %}
-    <h1>Greetings, {{ application()->user->getUsername() }}!</h1>
+    <h1>Welcome, {{ application()->user->getUsername() }}!</h1>
 
     <div class="grid">
         <div class="row">
@@ -23,6 +23,8 @@ use Bookstore\Models\File;
                     <div class="card book" style="margin-bottom: 1rem;">
                         <div class="card-body">
                             <?= $book->getFilename() ?>
+                            <br>
+                            <small><?= number_format($book->getSize()) ?> bytes</small>
                         </div>
                         <div class="card-footer">
                             <span>By <strong><?= $book->getAuthor() ?></strong></span>

@@ -70,6 +70,37 @@ class BookController
         ');
     }
 
+    #[Route('/book/{id}/return', methods: ['POST'])]
+    public function return(Request $request, array $params): Response
+    {
+        if ($response = $this->checkUserValidity()) {
+            return $response;
+        }
+
+        if ($this->fileRepository->return((int)$params["id"], application()->user->getId())) {
+            $response = new Response(200, 'OK',
+                json_encode([
+                    'status'  => 200,
+                    'message' => 'Book returned successfully.'
+                ])
+            );
+        } else {
+            $response = new Response(406, 'Not Acceptable',
+                json_encode([
+                    'status'  => 406,
+                    'message' => 'Not Acceptable',
+                    'error'   => [
+                        'message' => 'You cannot return this book.'
+                    ]
+                ])
+            );
+        }
+
+        $response->headers['Content-Type'] = 'application/json';
+
+        return $response;
+    }
+
     private function checkUserValidity(): ?Response
     {
         if (!application()->user) {
