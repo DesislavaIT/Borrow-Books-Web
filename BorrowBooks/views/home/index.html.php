@@ -4,7 +4,6 @@
  */
 
 use Bookstore\Models\File;
-
 ?>
 
 {% extends views/layout.html.php %}
@@ -14,12 +13,19 @@ use Bookstore\Models\File;
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ application()->user->getUsername() }}!</h1>
+    <div class="centered-container">
+        <h1>Welcome, {{ application()->user->getUsername() }}!</h1>
+
+        <div class="search-container">
+            <input type="text" id="book-search" placeholder="Search books...">
+            <i class="fa fa-search search-icon"></i>
+        </div>
+    </div>
 
     <div class="grid">
-        <div class="row">
+        <div class="row" id="book-list">
             <?php foreach ($books as $book): ?>
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 book-item" data-book-title="<?= htmlspecialchars($book->getFilename()) ?>">
                     <div class="card book" style="margin-bottom: 1rem; position: relative;">
                         <?php if (application()->user->getUsername() === $book->getAuthor()): ?>
                             <button type="button" class="close-button" data-book-id="<?= $book->getId() ?>">
@@ -27,12 +33,12 @@ use Bookstore\Models\File;
                             </button>
                         <?php endif; ?>
                         <div class="card-body">
-                            <?= $book->getFilename() ?>
+                            <?= htmlspecialchars($book->getFilename()) ?>
                             <br>
                             <small><?= number_format($book->getSize()) ?> bytes</small>
                         </div>
                         <div class="card-footer">
-                            <span>By <strong><?= $book->getAuthor() ?></strong></span>
+                            <span>By <strong><?= htmlspecialchars($book->getAuthor()) ?></strong></span>
                             <div class="card-actions" style="margin-top: 1rem;">
                                 <button type="button" class="button-primary" data-book-id="<?= $book->getId() ?>">
                                     <i class="fa fa-fw fa-bookmark"></i> Borrow

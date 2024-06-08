@@ -2,6 +2,8 @@ import { Dialog } from './lib/dialog.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const books = document.querySelectorAll('.book');
+    const searchInput = document.getElementById('book-search');
+    const bookItems = document.querySelectorAll('.book-item');
 
     books.forEach((book) => {
         const borrow_button = book.querySelector('.button-primary');
@@ -69,6 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             event.stopPropagation();
             event.preventDefault();
+        });
+    });
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        bookItems.forEach(bookItem => {
+            const bookTitle = bookItem.getAttribute('data-book-title').toLowerCase();
+            if (bookTitle.includes(query)) {
+                bookItem.style.display = '';
+            } else {
+                bookItem.style.display = 'none';
+            }
         });
     });
 });
