@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const books = document.querySelectorAll('.book');
 
     books.forEach((book) => {
-        const borrow_button = book.querySelector('button');
+        const borrow_button = book.querySelector('.button-primary');
+        const delete_button = book.querySelector('.close-button');
 
         borrow_button.addEventListener('click', (event) => {
             const book_id = parseInt(borrow_button.getAttribute('data-book-id'));
@@ -23,8 +24,48 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         window.location.reload();
                     }
-                })
-            ;
+                });
+
+            event.stopPropagation();
+            event.preventDefault();
+        });
+
+        delete_button.addEventListener('click', async (event) => {
+            const book_id = parseInt(delete_button.getAttribute('data-book-id'));
+
+            const confirmDelete = await Dialog.show({
+                title: 'Confirm Deletion',
+                message: 'Are you sure you want to delete this book?',
+                buttons: [
+                    { text: 'Cancel', role: 'cancel' },
+                    { text: 'Delete', role: 'confirm' }
+                ]
+            });
+
+            if (confirmDelete.role === 'confirm') {
+                fetch(`/book/${book_id}/delete`, { method: 'DELETE' })
+                    .then((response) => response.json())
+                    .then(async (response) => {
+                        if (response.status >= 400) {
+                            await Dialog.show({
+                                title: 'Error',
+                                message: response.message,
+                                buttons: [
+                                    { text: 'OK', role: 'confirm' }
+                                ]
+                            });
+                        } else {
+                            await Dialog.show({
+                                title: 'Success',
+                                message: 'Book deleted successfully.',
+                                buttons: [
+                                    { text: 'OK', role: 'confirm' }
+                                ]
+                            });
+                            window.location.reload();
+                        }
+                    });
+            }
 
             event.stopPropagation();
             event.preventDefault();

@@ -71,6 +71,13 @@ class FileRepository extends Repository
         return $statement->execute();
     }
 
+    public function delete(int $id): bool
+    {
+        $statement = $this->database->pdo->prepare('DELETE FROM ' . self::TABLE . ' WHERE id = :id');
+        $statement->bindValue(':id', $id);
+        return $statement->execute();
+    }
+
     /**
      * @return File[]
      */
@@ -145,6 +152,16 @@ class FileRepository extends Repository
             ->setParameter(':book_id', $file->getId())
         ;
 
+        return count($query->get()) > 0;
+    }
+
+    public function isBorrowed(int $bookId): bool
+    {
+        $query = $this->database->query('user_files')
+            ->select('*')
+            ->where('book_id = :book_id')
+            ->setParameter(':book_id', $bookId);
+    
         return count($query->get()) > 0;
     }
 

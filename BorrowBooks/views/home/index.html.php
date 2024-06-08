@@ -20,7 +20,12 @@ use Bookstore\Models\File;
         <div class="row">
             <?php foreach ($books as $book): ?>
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="card book" style="margin-bottom: 1rem;">
+                    <div class="card book" style="margin-bottom: 1rem; position: relative;">
+                        <?php if (application()->user->getUsername() === $book->getAuthor()): ?>
+                            <button type="button" class="close-button" data-book-id="<?= $book->getId() ?>">
+                                &times;
+                            </button>
+                        <?php endif; ?>
                         <div class="card-body">
                             <?= $book->getFilename() ?>
                             <br>

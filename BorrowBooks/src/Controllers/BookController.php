@@ -101,6 +101,26 @@ class BookController
         return $response;
     }
 
+    #[Route('/book/{id}/delete', methods: ['DELETE'])]
+    public function delete(Request $request, array $params): Response
+    {
+        if ($response = $this->checkUserValidity()) {
+            return $response;
+        }
+    
+        $file = $this->fileRepository->find((int)$params['id']);
+        if ($file && $file->getAuthor() === application()->user->getUsername()) {
+            if ($this->fileRepository->isBorrowed($file->getId())) {
+                return new Response(403, 'Forbidden', json_encode(['status' => 403, 'message' => 'The book is currently borrowed and cannot be deleted.']));
+            }
+    
+            $this->fileRepository->delete((int)$params['id']);
+            return new Response(200, 'OK', json_encode(['status' => 200, 'message' => 'Book deleted successfully.']));
+        }
+    
+        return new Response(403, 'Forbidden', json_encode(['status' => 403, 'message' => 'You are not authorized to delete this book.']));
+    }
+
     private function checkUserValidity(): ?Response
     {
         if (!application()->user) {
