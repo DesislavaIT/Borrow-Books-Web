@@ -25,7 +25,7 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="password-confirm">Password</label>
+                    <label for="password-confirm">Confirm Password</label>
                     <input type="password" id="password-confirm" name="password_confirm" required>
                 </div>
                 <div class="form-actions" style="justify-content: center;">

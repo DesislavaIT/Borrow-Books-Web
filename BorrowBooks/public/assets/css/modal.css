@@ -1,17 +1,12 @@
 .modal {
     display: none;
-
     position: absolute;
     inset: 0;
     z-index: 2000;
-
     width: 100%;
     height: 100%;
-
     backdrop-filter: blur(0.25rem);
-
     opacity: 0;
-
     transition: all 200ms ease-in-out;
 }
 .modal.open {
@@ -23,16 +18,12 @@
     opacity: 1;
     transition: all 200ms ease-in-out;
 }
-
 .modal .modal-overlay {
     display: block;
-
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     background-color: rgba(240, 240, 240, 0.25);
 }
 

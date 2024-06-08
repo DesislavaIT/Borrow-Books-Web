@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
         });
 
+        if(delete_button) {
         delete_button.addEventListener('click', async (event) => {
             const book_id = parseInt(delete_button.getAttribute('data-book-id'));
 
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.stopPropagation();
             event.preventDefault();
         });
+    }
     });
 
     searchInput.addEventListener('input', () => {
