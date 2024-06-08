@@ -4,7 +4,6 @@
  */
 
 use Bookstore\Models\UserFile;
-
 ?>
 
 {% extends views/layout.html.php %}
@@ -14,16 +13,23 @@ use Bookstore\Models\UserFile;
 {% endblock %}
 
 {% block content %}
+    <div class="centered-container">
+        <div class="search-container">
+            <input type="text" id="book-search" placeholder="Search borrowed books...">
+            <i class="fa fa-search search-icon"></i>
+        </div>
+    </div>
+
     <div class="grid">
-        <div class="row">
+        <div class="row" id="book-list">
             <?php foreach ($books as $book): ?>
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 book-item" data-book-title="<?= htmlspecialchars($book->getFile()->getFilename()) ?>">
                     <div class="card book" style="margin-bottom: 1rem;">
                         <div class="card-body">
-                            <?= $book->getFile()->getFilename() ?>
+                            <?= htmlspecialchars($book->getFile()->getFilename()) ?>
                         </div>
                         <div class="card-body">
-                            <p>By <strong><?= $book->getFile()->getAuthor() ?></strong></p>
+                            <p>By <strong><?= htmlspecialchars($book->getFile()->getAuthor()) ?></strong></p>
                             <?php $color = time() > $book->getReturnDate()->getTimestamp() ? 'red': 'inherit' ?>
                             <span style="margin-right: auto; color: <?= $color ?>;">
                                 Return on <?= $book->getReturnDate()->format('d/m/Y') ?>
