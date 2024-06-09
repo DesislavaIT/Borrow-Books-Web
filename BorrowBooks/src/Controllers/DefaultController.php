@@ -43,4 +43,12 @@ class DefaultController
             'books' => $this->fileRepository->findBorrowedBy(application()->user)
         ]);
     }
+
+    #[Route('/statistics', name: 'statistics')]
+    public function statistics(): Response
+    {
+        return ResponseFactory::view('views/statistics/index.html.php', [
+            'books' => $this->fileRepository->all()
+        ]);
+    }
 }

@@ -39,7 +39,9 @@ class FileRepository extends Repository
         $borrowed = $this->database->query('user_files')
             ->select('*')
             ->where('book_id = :book_id')
+            ->where('user_id = :user_id')
             ->setParameter(':book_id', $book_id)
+            ->setParameter(':user_id', $user_id)
             ->get()[0] ?? null;
 
         if (!$borrowed) {
@@ -163,6 +165,47 @@ class FileRepository extends Repository
             ->setParameter(':book_id', $bookId);
     
         return count($query->get()) > 0;
+    }
+
+    public function getTop5MostReadBooks(): array
+    {
+        $query = $this->database->query('user_files')
+            ->select('book_id, COUNT(DISTINCT user_id) AS user_count')
+            ->groupBy('book_id')
+            ->orderBy('user_count', 'DESC')
+            ->limit(5);
+    
+        $topBooks = [];
+        foreach ($query->get() as $data) {
+            $book = $this->find((int)$data['book_id']);
+            if ($book) {
+                $topBooks[] = [
+                    'title' => $book->getFilename(),
+                    'user_count' => (int)$data['user_count']
+                ];
+            }
+        }
+    
+        return $topBooks;
+    }
+
+    public function getTopAuthorsAndUploadedBooks(): array
+    {
+        $query = $this->database->query(self::TABLE)
+            ->select('author, COUNT(*) AS upload_count')
+            ->groupBy('author')
+            ->orderBy('upload_count', 'DESC')
+            ->limit(5);
+
+        $topAuthors = [];
+        foreach ($query->get() as $data) {
+            $topAuthors[] = [
+                'author' => $data['author'],
+                'upload_count' => (int)$data['upload_count']
+            ];
+        }
+
+        return $topAuthors;
     }
 
     private function hydrate(array $data): File

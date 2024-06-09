@@ -54,6 +54,11 @@
                                 <i class="fa fa-fw fa-bookmark" aria-hidden="true"></i>Borrowed
                             </a>
                         </li>
+                        <li class="<?= application()->router->currentRoute->name === 'statistics' ? 'active' : '' ?>">
+                            <a href="/statistics">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>Statistics
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <nav style="margin-top: auto;">

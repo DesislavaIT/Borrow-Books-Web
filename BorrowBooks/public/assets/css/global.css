@@ -3,6 +3,7 @@
 @import "card.css";
 @import "modal.css";
 @import "dropzone.css";
+@import "statistics.css";
 
 *, ::before, ::after {
     box-sizing: border-box;
@@ -307,4 +308,9 @@ button.button-wide {
     .sidebar-toggle {
         display: unset;
     }
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
 }

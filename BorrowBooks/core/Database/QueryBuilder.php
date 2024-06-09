@@ -7,6 +7,10 @@ class QueryBuilder
     private array $select = [];
     private array $wheres = [];
     private array $params = [];
+    private ?string $groupBy = null;
+    private ?string $orderByField = null;
+    private ?string $orderByDirection = null;
+    private ?int $limit = null;
 
     public function __construct(
         private readonly Database $database,
@@ -34,6 +38,28 @@ class QueryBuilder
         return $this;
     }
 
+    public function groupBy(string $field): static
+    {
+        $this->groupBy = $field;
+
+        return $this;
+    }
+
+    public function orderBy(string $field, string $direction = 'ASC'): static
+    {
+        $this->orderByField = $field;
+        $this->orderByDirection = $direction;
+
+        return $this;
+    }
+
+    public function limit(int $value): static
+    {
+        $this->limit = $value;
+
+        return $this;
+    }
+
     public function get(): array|bool
     {
         $sql = 'SELECT ' . implode(',', $this->select)
@@ -47,6 +73,21 @@ class QueryBuilder
                 }
                 $sql .= $where['expression'];
             }
+        }
+
+        if (!empty($this->groupBy)) {
+            $sql .= ' GROUP BY ' . $this->groupBy;
+        }
+
+        if (!empty($this->orderByField)) {
+            $sql .= ' ORDER BY ' . $this->orderByField;
+            if (!empty($this->orderByDirection)) {
+                $sql .= ' ' . $this->orderByDirection;
+            }
+        }
+
+        if (!empty($this->limit)) {
+            $sql .= ' LIMIT ' . $this->limit;
         }
 
         $statement = $this->database->pdo->prepare($sql);
