@@ -126,8 +126,19 @@ class FileRepository extends Repository
         return null;
     }
 
+    public function findByName(string $fileName): bool
+    {
+        $query = $this->database->query(self::TABLE)
+            ->select('COUNT(*)')
+            ->where('filename = :fileName')
+            ->setParameter(':fileName', $fileName);
+    
+        return (bool) $query->get()[0]['COUNT(*)'];
+    }
+
     public function findBorrowedBy(User $user): array
     {
+        $user_id = $user->getId();
         $query = $this->database->query('user_files')
             ->select('*')
             ->where('user_id = :user_id')
@@ -145,6 +156,8 @@ class FileRepository extends Repository
 
     public function checkBorrowedBy(File $file, User $user): bool
     {
+        $user_id = $user->getId();
+        $book_id = $file->getId();
         $query = $this->database->query('user_files')
             ->select('*')
             ->where('user_id = :user_id')
