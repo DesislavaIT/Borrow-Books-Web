@@ -19,7 +19,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f2f2f2;
-
+    background-image: url("../images/home-background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
 }
@@ -38,6 +41,10 @@ a:visited {
 }
 a:hover {
     text-decoration: underline;
+}
+
+.welcome-text {
+    color: white;
 }
 
 input,

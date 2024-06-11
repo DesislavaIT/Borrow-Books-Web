@@ -31,7 +31,7 @@ export class Dropzone
                         Click to select or drag & drop file(s).<br>
                         (Maximum of ${self.max} files.)
                     </span>
-                    <i class="fa fa-fw fa-upload"></i>
+                    <img src="assets/images/upload-file.png" alt="Upload Icon" class="upload-icon"/>
                 </div>
                 <ul class="dropzone-list"></ul>
             </div>

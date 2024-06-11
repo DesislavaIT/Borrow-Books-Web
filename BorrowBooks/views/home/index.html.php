@@ -14,7 +14,7 @@ use Bookstore\Models\File;
 
 {% block content %}
     <div class="centered-container">
-        <h1>Welcome, {{ application()->user->getUsername() }}!</h1>
+        <h1 class="welcome-text">Welcome, {{ application()->user->getUsername() }}!</h1>
 
         <div class="search-container">
             <input type="text" id="book-search" placeholder="Search books...">
