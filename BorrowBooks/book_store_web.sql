@@ -33,20 +33,21 @@ CREATE TABLE `files` (
   `storage_path` varchar(255) NOT NULL,
   `mime_type` varchar(255) NOT NULL,
   `author` varchar(255) DEFAULT NULL,
-  `size` int(11) NOT NULL
+  `size` int(11) NOT NULL,
+  `uploaded_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `filename`, `storage_path`, `mime_type`, `author`, `size`) VALUES
-(30, 'DUPR_project.pdf', '/storage/uploads/4e04c2e9c21bb063ae9da01bcf41edf0', 'application/pdf', 'vasi', 1915081),
-(31, 'PCHMI.pdf', '/storage/uploads/c8980aac6ff9d8f50327362e802d9776', 'application/pdf', 'vasi', 187518),
-(32, 'СнежинкатаНаКох.pdf', '/storage/uploads/8bdd287dc4c02d98709871f793d6ead0', 'application/pdf', 'desi', 211851),
-(33, 'Килимът на Сиерпински.pdf', '/storage/uploads/d5074be1947f8963c29620f41e1d0479', 'application/pdf', 'desi', 133321),
-(34, 'PCHMI_template.pdf', '/storage/uploads/5c4b2fc673272d129a4c45895661e1e6', 'application/pdf', 'vasi', 237677),
-(35, 'ASI-Presentatione.pdf', '/storage/uploads/3408210956b5c49c6ad60437ff3abe3b', 'application/pdf', 'edi', 174350);
+INSERT INTO `files` (`id`, `filename`, `storage_path`, `mime_type`, `author`, `size`, `uploaded_date`) VALUES
+(30, 'DUPR_project.pdf', '/storage/uploads/4e04c2e9c21bb063ae9da01bcf41edf0', 'application/pdf', 'vasi', 1915081, '2024-03-01'),
+(31, 'PCHMI.pdf', '/storage/uploads/c8980aac6ff9d8f50327362e802d9776', 'application/pdf', 'vasi', 187518, '2024-04-01'),
+(32, 'СнежинкатаНаКох.pdf', '/storage/uploads/8bdd287dc4c02d98709871f793d6ead0', 'application/pdf', 'desi', 211851, '2024-02-05'),
+(33, 'Килимът на Сиерпински.pdf', '/storage/uploads/d5074be1947f8963c29620f41e1d0479', 'application/pdf', 'desi', 133321, '2024-03-03'),
+(34, 'PCHMI_template.pdf', '/storage/uploads/5c4b2fc673272d129a4c45895661e1e6', 'application/pdf', 'vasi', 237677, '2024-04-02'),
+(35, 'ASI-Presentatione.pdf', '/storage/uploads/3408210956b5c49c6ad60437ff3abe3b', 'application/pdf', 'edi', 174350, '2024-05-01');
 
 -- --------------------------------------------------------
 

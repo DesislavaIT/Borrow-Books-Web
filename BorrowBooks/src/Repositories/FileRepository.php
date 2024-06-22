@@ -16,8 +16,8 @@ class FileRepository extends Repository
     public function create(array $data): ?File
     {
         $statement = $this->database->pdo->prepare(
-            'INSERT INTO ' . static::TABLE . ' (filename, storage_path, mime_type, author, size)
-                   VALUES (:filename, :storage_path, :mime_type, :author, :size)
+            'INSERT INTO ' . static::TABLE . ' (filename, storage_path, mime_type, author, size, uploaded_date)
+                   VALUES (:filename, :storage_path, :mime_type, :author, :size, :uploaded_date)
             '
         );
 
@@ -26,6 +26,7 @@ class FileRepository extends Repository
         $statement->bindValue(':mime_type', $data['mime_type']);
         $statement->bindValue(':author', $data['author']);
         $statement->bindValue(':size', $data['size']);
+        $statement->bindValue(':uploaded_date', $data['uploaded_date']);
 
         if ($statement->execute()) {
             return $this->findByStoragePath($data['storage_path']);
@@ -229,7 +230,8 @@ class FileRepository extends Repository
             $data['storage_path'],
             $data['mime_type'],
             $data['author'] ?? 'Unknown',
-            (int)$data['size']
+            (int)$data['size'],
+            new \DateTime($data['uploaded_date'])
         );
     }
 }

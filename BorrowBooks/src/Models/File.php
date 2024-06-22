@@ -11,6 +11,7 @@ class File
         public string       $mime_type,
         public string       $author,
         public int          $size,
+        public \DateTime    $uploaded_date
     ) {}
 
     public function getId(): int
@@ -74,6 +75,18 @@ class File
     public function setSize(int $size): static
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function getUploadedDate(): string
+    {
+        return $this->uploaded_date->format('d/m/Y');
+    }
+
+    public function setUploadedDate(\DateTime $uploaded_date): static
+    {
+        $this->uploaded_date = $uploaded_date;
 
         return $this;
     }

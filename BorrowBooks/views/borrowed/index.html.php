@@ -29,11 +29,12 @@ use Bookstore\Models\UserFile;
                             <?= htmlspecialchars($book->getFile()->getFilename()) ?>
                         </div>
                         <div class="card-body">
-                            <p>By <strong><?= htmlspecialchars($book->getFile()->getAuthor()) ?></strong></p>
+                            <p>Author: <strong><?= htmlspecialchars($book->getFile()->getAuthor()) ?></strong></p>
                             <?php $color = time() > $book->getReturnDate()->getTimestamp() ? 'red': 'inherit' ?>
-                            <span style="margin-right: auto; color: <?= $color ?>;">
+                            <span class="return-date" data-return-date="<?= $book->getReturnDate()->format('Y-m-d') ?>" style="margin-right: auto; color: <?= $color ?>;">
                                 Return on <?= $book->getReturnDate()->format('d/m/Y') ?>
                             </span>
+                            <span class="countdown" style="color: purple; font-size: smaller;"></span>
                         </div>
                         <div class="card-footer">
                             <div class="card-actions">

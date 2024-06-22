@@ -76,15 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     });
 
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value.toLowerCase();
+    const filterBooks = (query) => {
+        query = query.toLowerCase().trim();
         bookItems.forEach(bookItem => {
             const bookTitle = bookItem.getAttribute('data-book-title').toLowerCase();
-            if (bookTitle.includes(query)) {
+            const bookAuthor = bookItem.querySelector('[data-book-author]').textContent.toLowerCase();
+            if (bookTitle.includes(query) || bookAuthor.includes(query)) {
                 bookItem.style.display = '';
             } else {
                 bookItem.style.display = 'none';
             }
         });
+    };
+
+    filterBooks('');
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value;
+        filterBooks(query);
     });
 });
