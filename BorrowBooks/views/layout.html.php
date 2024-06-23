@@ -59,6 +59,11 @@
                                 <i class="fa fa-bar-chart" aria-hidden="true"></i>Statistics
                             </a>
                         </li>
+                        <li class="<?= application()->router->currentRoute->name === 'history' ? 'active' : '' ?>">
+                            <a href="/history">
+                                <i class="fa fa-fw fa-history" aria-hidden="true"></i>History
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <nav style="margin-top: auto;">

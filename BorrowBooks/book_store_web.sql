@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2024 at 06:50 PM
+-- Generation Time: Jun 23, 2024 at 10:34 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -89,13 +89,35 @@ CREATE TABLE `user_files` (
 --
 
 INSERT INTO `user_files` (`user_id`, `book_id`, `return_date`) VALUES
-(1, 33, '2024-07-01'),
-(1, 35, '2024-07-01'),
+(1, 32, '2024-07-13'),
+(1, 33, '2024-07-13'),
+(1, 35, '2024-07-13'),
 (2, 31, '2024-07-01'),
 (2, 35, '2024-07-01'),
 (3, 31, '2024-07-01'),
 (3, 32, '2024-07-01'),
 (3, 35, '2024-07-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_history`
+--
+
+CREATE TABLE `user_history` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `book_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_history`
+--
+
+INSERT INTO `user_history` (`user_id`, `book_id`) VALUES
+(1, 30),
+(1, 33),
+(1, 35),
+(1, 32);
 
 --
 -- Indexes for dumped tables
@@ -129,7 +151,7 @@ ALTER TABLE `user_files`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`

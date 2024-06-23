@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.centered-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.book-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.book-item:hover {
+    background-color: #f9f9f9;
+}
+
+.book-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.book-author {
+    color: #555;
+    font-style: italic;
+}
+
+.book-details span {
+    display: inline-block;
+    margin-right: 10px;
+}
