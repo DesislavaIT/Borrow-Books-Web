@@ -38,7 +38,8 @@ use Bookstore\Models\File;
                             <small><?= number_format($book->getSize()) ?> bytes</small>
                         </div>
                         <div class="card-footer">
-                            <span>By <strong><?= htmlspecialchars($book->getAuthor()) ?></strong></span>
+                            <span>Author: <strong data-book-author="<?= htmlspecialchars($book->getAuthor()) ?>"><?= htmlspecialchars($book->getAuthor()) ?></strong></span>
+                            <span>Uploaded: <strong><?= htmlspecialchars($book->getUploadedDate()) ?></strong></span>
                             <div class="card-actions" style="margin-top: 1rem;">
                                 <button type="button" class="button-primary" data-book-id="<?= $book->getId() ?>">
                                     <i class="fa fa-fw fa-bookmark"></i> Borrow

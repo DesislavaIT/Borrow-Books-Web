@@ -6,6 +6,7 @@ use Bookstore\Repositories\FileRepository;
 use Core\HTTP\Request;
 use Core\HTTP\Response;
 use Core\Web\Router\Route;
+use DateTime;
 
 class ImportController
 {
@@ -63,11 +64,12 @@ class ImportController
                 move_uploaded_file($request->files['resource']['tmp_name'][$i], $storage_path);
 
                 $this->fileRepository->create([
-                    'filename'     => $fileName,
-                    'storage_path' => '/storage/uploads/' . $filename,
-                    'mime_type'    => $request->files['resource']['type'][$i],
-                    'author'       => application()->user->getUsername(),
-                    'size'         => (int)$request->files['resource']['size'][$i]
+                    'filename'      => $fileName,
+                    'storage_path'  => '/storage/uploads/' . $filename,
+                    'mime_type'     => $request->files['resource']['type'][$i],
+                    'author'        => application()->user->getUsername(),
+                    'size'          => (int)$request->files['resource']['size'][$i],
+                    'uploaded_date' => (new DateTime())->format('d/m/Y') 
                 ]);
             }
         }

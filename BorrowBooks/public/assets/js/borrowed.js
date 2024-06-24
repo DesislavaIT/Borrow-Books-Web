@@ -4,6 +4,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const books = document.querySelectorAll('.book');
     const searchInput = document.getElementById('book-search');
     const bookItems = document.querySelectorAll('.book-item');
+    const returnDates = document.querySelectorAll('.return-date');
+
+    function updateCountdown() {
+        returnDates.forEach(returnDateElement => {
+            const returnDate = new Date(returnDateElement.dataset.returnDate);
+            const countdownElement = returnDateElement.nextElementSibling;
+
+            const now = new Date();
+            const diffTime = returnDate - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays > 0) {
+                countdownElement.innerHTML = `<br>${diffDays} days remaining`;
+            } else {
+                countdownElement.innerHTML = '<br>Past due';
+                countdownElement.style.color = 'red';
+            }
+        });
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 60 * 24); // Update every day
 
     books.forEach((book) => {
         const read_button = book.querySelector('.button-read');

@@ -5,6 +5,7 @@ namespace Bookstore\Repositories;
 use Bookstore\Models\File;
 use Bookstore\Models\User;
 use Bookstore\Models\UserFile;
+use Bookstore\Models\UserHistory;
 use Core\Database\Repository;
 
 class FileRepository extends Repository
@@ -16,8 +17,8 @@ class FileRepository extends Repository
     public function create(array $data): ?File
     {
         $statement = $this->database->pdo->prepare(
-            'INSERT INTO ' . static::TABLE . ' (filename, storage_path, mime_type, author, size)
-                   VALUES (:filename, :storage_path, :mime_type, :author, :size)
+            'INSERT INTO ' . static::TABLE . ' (filename, storage_path, mime_type, author, size, uploaded_date)
+                   VALUES (:filename, :storage_path, :mime_type, :author, :size, :uploaded_date)
             '
         );
 
@@ -26,6 +27,7 @@ class FileRepository extends Repository
         $statement->bindValue(':mime_type', $data['mime_type']);
         $statement->bindValue(':author', $data['author']);
         $statement->bindValue(':size', $data['size']);
+        $statement->bindValue(':uploaded_date', $data['uploaded_date']);
 
         if ($statement->execute()) {
             return $this->findByStoragePath($data['storage_path']);
@@ -54,7 +56,10 @@ class FileRepository extends Repository
             $statement->bindValue(':book_id', $book_id);
             $statement->bindValue(':return_date', $return_date->format('Y-m-d'));
 
-            return $statement->execute();
+            if ($statement->execute()) {
+                $this->saveInHistory($book_id, $user_id);
+                return true;
+            }
         }
 
         return false;
@@ -80,9 +85,28 @@ class FileRepository extends Repository
         return $statement->execute();
     }
 
-    /**
-     * @return File[]
-     */
+    public function saveInHistory(int $book_id, int $user_id): void
+    {
+        $existsInHistory = $this->database->query('user_history')
+            ->select('*')
+            ->where('book_id = :book_id')
+            ->where('user_id = :user_id')
+            ->setParameter(':book_id', $book_id)
+            ->setParameter(':user_id', $user_id)
+            ->get()[0] ?? null;
+
+        if (!$existsInHistory) {
+            $statement = $this->database->pdo->prepare('
+                INSERT INTO user_history (user_id, book_id)
+                VALUES (:user_id, :book_id)
+            ');
+
+            $statement->bindValue(':user_id', $user_id);
+            $statement->bindValue(':book_id', $book_id);
+            $statement->execute();
+        }
+    }
+
     public function all(): array
     {
         $query = $this->database->query(self::TABLE)->select('*');
@@ -170,6 +194,34 @@ class FileRepository extends Repository
         return count($query->get()) > 0;
     }
 
+    public function getAllInHistory(User $user): array
+    {
+        $user_id = $user->getId();
+
+        $query = $this->database->query('user_history')
+            ->select('*')
+            ->where('user_id = :user_id')
+            ->setParameter(':user_id', $user_id);
+
+        $historyRecords = $query->get();
+
+        $userHistoryList = [];
+
+        foreach ($historyRecords as $record) {
+            $book_id = (int) $record['book_id'];
+            $book = $this->find($book_id);
+
+            if ($book) {
+                $userHistoryList[] = new UserHistory(
+                    $user,
+                    $book
+                );
+            }
+        }
+
+        return $userHistoryList;
+    }
+
     public function isBorrowed(int $bookId): bool
     {
         $query = $this->database->query('user_files')
@@ -229,7 +281,8 @@ class FileRepository extends Repository
             $data['storage_path'],
             $data['mime_type'],
             $data['author'] ?? 'Unknown',
-            (int)$data['size']
+            (int)$data['size'],
+            new \DateTime($data['uploaded_date'])
         );
     }
 }

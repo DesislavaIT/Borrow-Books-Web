@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2024 at 06:50 PM
+-- Generation Time: Jun 23, 2024 at 10:34 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,20 +33,21 @@ CREATE TABLE `files` (
   `storage_path` varchar(255) NOT NULL,
   `mime_type` varchar(255) NOT NULL,
   `author` varchar(255) DEFAULT NULL,
-  `size` int(11) NOT NULL
+  `size` int(11) NOT NULL,
+  `uploaded_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `filename`, `storage_path`, `mime_type`, `author`, `size`) VALUES
-(30, 'DUPR_project.pdf', '/storage/uploads/4e04c2e9c21bb063ae9da01bcf41edf0', 'application/pdf', 'vasi', 1915081),
-(31, 'PCHMI.pdf', '/storage/uploads/c8980aac6ff9d8f50327362e802d9776', 'application/pdf', 'vasi', 187518),
-(32, 'СнежинкатаНаКох.pdf', '/storage/uploads/8bdd287dc4c02d98709871f793d6ead0', 'application/pdf', 'desi', 211851),
-(33, 'Килимът на Сиерпински.pdf', '/storage/uploads/d5074be1947f8963c29620f41e1d0479', 'application/pdf', 'desi', 133321),
-(34, 'PCHMI_template.pdf', '/storage/uploads/5c4b2fc673272d129a4c45895661e1e6', 'application/pdf', 'vasi', 237677),
-(35, 'ASI-Presentatione.pdf', '/storage/uploads/3408210956b5c49c6ad60437ff3abe3b', 'application/pdf', 'edi', 174350);
+INSERT INTO `files` (`id`, `filename`, `storage_path`, `mime_type`, `author`, `size`, `uploaded_date`) VALUES
+(30, 'DUPR_project.pdf', '/storage/uploads/4e04c2e9c21bb063ae9da01bcf41edf0', 'application/pdf', 'vasi', 1915081, '2024-03-01'),
+(31, 'PCHMI.pdf', '/storage/uploads/c8980aac6ff9d8f50327362e802d9776', 'application/pdf', 'vasi', 187518, '2024-04-01'),
+(32, 'СнежинкатаНаКох.pdf', '/storage/uploads/8bdd287dc4c02d98709871f793d6ead0', 'application/pdf', 'desi', 211851, '2024-02-05'),
+(33, 'Килимът на Сиерпински.pdf', '/storage/uploads/d5074be1947f8963c29620f41e1d0479', 'application/pdf', 'desi', 133321, '2024-03-03'),
+(34, 'PCHMI_template.pdf', '/storage/uploads/5c4b2fc673272d129a4c45895661e1e6', 'application/pdf', 'vasi', 237677, '2024-04-02'),
+(35, 'ASI-Presentatione.pdf', '/storage/uploads/3408210956b5c49c6ad60437ff3abe3b', 'application/pdf', 'edi', 174350, '2024-05-01');
 
 -- --------------------------------------------------------
 
@@ -88,13 +89,35 @@ CREATE TABLE `user_files` (
 --
 
 INSERT INTO `user_files` (`user_id`, `book_id`, `return_date`) VALUES
-(1, 33, '2024-07-01'),
-(1, 35, '2024-07-01'),
+(1, 32, '2024-07-13'),
+(1, 33, '2024-07-13'),
+(1, 35, '2024-07-13'),
 (2, 31, '2024-07-01'),
 (2, 35, '2024-07-01'),
 (3, 31, '2024-07-01'),
 (3, 32, '2024-07-01'),
 (3, 35, '2024-07-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_history`
+--
+
+CREATE TABLE `user_history` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `book_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_history`
+--
+
+INSERT INTO `user_history` (`user_id`, `book_id`) VALUES
+(1, 30),
+(1, 33),
+(1, 35),
+(1, 32);
 
 --
 -- Indexes for dumped tables
@@ -128,7 +151,7 @@ ALTER TABLE `user_files`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`

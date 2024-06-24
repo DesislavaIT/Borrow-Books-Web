@@ -51,4 +51,12 @@ class DefaultController
             'books' => $this->fileRepository->all()
         ]);
     }
+
+    #[Route('/history', name: 'history')]
+    public function history(): Response
+    {
+        return ResponseFactory::view('views/history/index.html.php', [
+            'books' => $this->fileRepository->getAllInHistory(application()->user)
+        ]);
+    }
 }
